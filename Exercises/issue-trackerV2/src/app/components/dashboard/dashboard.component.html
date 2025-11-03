@@ -1,8 +1,3 @@
-<div class="flex items-center justify-between mb-4">
-  <h2 class="text-white text-2xl font-semibold">Issue Tracker — Simplified Dashboard</h2>
-  
-</div>
-
 <p-card styleClass="surface-card border-none">
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-3">
@@ -10,7 +5,7 @@
         <input
           pInputTextarea
           type="text"
-          placeholder="Search by title, ID, or assignee…"
+          placeholder="Search by Title, ID"
           [ngModel]="search()"
           (ngModelChange)="search.set($event)"
           class="w-full p-2"
@@ -74,7 +69,7 @@
         <div class="kpi-value">{{ kpiProgress() }}</div>
       </p-card>
       <p-card styleClass="kpi card-item">
-        <div class="kpi-title">Completed</div>
+        <div class="kpi-title">Done</div>
         <div class="kpi-value">{{ kpiCompleted() }}</div>
       </p-card>
       <p-card styleClass="kpi card-item">
@@ -86,7 +81,7 @@
 </p-card>
 
 <p-tabView class="mt-4">
-  <p-tabPanel header="Kanban">
+  <p-tabPanel header="Board">
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
 
       <p-card
@@ -97,7 +92,7 @@
         [cdkDropListConnectedTo]="[progressList, blockedList, doneList]"
         (cdkDropListDropped)="drop($event, 'new')"
       >
-        <div class="col-title">Backlog</div>
+        <div class="col-title">New</div>
         <div class="space-y-3 min-h-[100px]">
           <div
             class="card-item flex flex-col gap-3"
@@ -210,68 +205,7 @@
           </div>
         </div>
       </p-card>
-
-      <p-card
-        styleClass="kanban-col"
-        cdkDropList
-        #blockedList="cdkDropList"
-        [cdkDropListData]="colBlocked()"
-        [cdkDropListConnectedTo]="[backlogList, progressList, doneList]"
-        (cdkDropListDropped)="drop($event, 'blocked')"
-      >
-        <div class="col-title">Blocked</div>
-        <div class="space-y-3 min-h-[100px]">
-          <div
-            class="card-item flex flex-col gap-3"
-            *ngFor="let i of colBlocked(); trackBy: trackById"
-            cdkDrag
-          >
-            <div class="flex justify-between items-center">
-              <div class="id">{{ i.id }}</div>
-              <p-tag
-                [severity]="stateSeverity(i.state)"
-                [value]="i.state | titlecase"
-              ></p-tag>
-            </div>
-
-            <div class="flex flex-col gap-1">
-              <div class="text-white text-sm font-medium">{{ i.title }}</div>
-              <div class="text-neutral-300 text-xs">{{ i.description }}</div>
-            </div>
-
-            <div class="flex flex-col gap-1 text-xs text-neutral-200">
-              <div class="flex items-center gap-1">
-                <i class="pi pi-user text-xs"></i>
-                <span>Created by: {{ createdByName(i.createdBy) }}</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <i class="pi pi-user-plus text-xs"></i>
-                <span>Assigned to: {{ assigneeName(i.assignedTo) }}</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <i class="pi pi-calendar text-xs"></i>
-                <span>Created: {{ i.createdAt | date: 'MMM d, y' }}</span>
-              </div>
-            </div>
-
-            <div class="actions flex justify-end gap-2">
-              <button
-                pButton
-                icon="pi pi-eye"
-                class="p-button-text text-white flex rounded-full"
-                (click)="openViewModal(i.id)"
-              ></button>
-              <button
-                pButton
-                icon="pi pi-pencil"
-                class="p-button-text text-white flex rounded-full"
-                (click)="openEditModal(i.id)"
-              ></button>
-            </div>
-          </div>
-        </div>
-      </p-card>
-
+      
       <!-- Done -->
       <p-card
         styleClass="kanban-col"
@@ -333,6 +267,69 @@
           </div>
         </div>
       </p-card>
+
+      <!-- Blocked -->
+      <p-card
+        styleClass="kanban-col"
+        cdkDropList
+        #blockedList="cdkDropList"
+        [cdkDropListData]="colBlocked()"
+        [cdkDropListConnectedTo]="[backlogList, progressList, doneList]"
+        (cdkDropListDropped)="drop($event, 'blocked')"
+      >
+        <div class="col-title">Blocked</div>
+        <div class="space-y-3 min-h-[100px]">
+          <div
+            class="card-item flex flex-col gap-3"
+            *ngFor="let i of colBlocked(); trackBy: trackById"
+            cdkDrag
+          >
+            <div class="flex justify-between items-center">
+              <div class="id">{{ i.id }}</div>
+              <p-tag
+                [severity]="stateSeverity(i.state)"
+                [value]="i.state | titlecase"
+              ></p-tag>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <div class="text-white text-sm font-medium">{{ i.title }}</div>
+              <div class="text-neutral-300 text-xs">{{ i.description }}</div>
+            </div>
+
+            <div class="flex flex-col gap-1 text-xs text-neutral-200">
+              <div class="flex items-center gap-1">
+                <i class="pi pi-user text-xs"></i>
+                <span>Created by: {{ createdByName(i.createdBy) }}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <i class="pi pi-user-plus text-xs"></i>
+                <span>Assigned to: {{ assigneeName(i.assignedTo) }}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <i class="pi pi-calendar text-xs"></i>
+                <span>Created: {{ i.createdAt | date: 'MMM d, y' }}</span>
+              </div>
+            </div>
+
+            <div class="actions flex justify-end gap-2">
+              <button
+                pButton
+                icon="pi pi-eye"
+                class="p-button-text text-white flex rounded-full"
+                (click)="openViewModal(i.id)"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-pencil"
+                class="p-button-text text-white flex rounded-full"
+                (click)="openEditModal(i.id)"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </p-card>
+
     </div>
   </p-tabPanel>
 

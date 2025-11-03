@@ -93,12 +93,12 @@
         </div> -->
 
         <div class="flex items-center gap-4">
-          <button class="relative p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
+          <!-- <button class="relative p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition">
             <i class="pi pi-bell text-xl"></i>
             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          </button> -->
 
-          <div class="relative group">
+          <div class="flex gap-2 items-end">
             <button class="flex items-center gap-3 p-2 hover:bg-white/10 rounded-lg transition">
               <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
                 <span class="text-white font-bold text-sm">{{ getUserInitials() }}</span>
@@ -107,10 +107,14 @@
                 <p class="text-white font-medium text-sm">{{ getUserFullName() }}</p>
                 <p class="text-gray-400 text-xs">{{ currentUser?.role | titlecase }}</p>
               </div>
-              <i class="pi pi-angle-down text-gray-400 hidden sm:block"></i>
+            </button>
+            <button 
+              (click)="logout()"
+              class="flex items-center gap-3 p-2 text-red-400 hover:bg-red-500/10 rounded-full transition">
+              <i class="pi pi-sign-out"></i>
             </button>
 
-            <div class="absolute right-0 mt-2 w-48 bg-[#1a1a40] border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+            <!-- <div class="absolute right-0 mt-2 w-48 bg-[#1a1a40] border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
               <div class="p-2">
                 <button class="w-full flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-white/10 rounded-lg transition">
                   <i class="pi pi-user"></i>
@@ -128,7 +132,7 @@
                   <span>Logout</span>
                 </button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

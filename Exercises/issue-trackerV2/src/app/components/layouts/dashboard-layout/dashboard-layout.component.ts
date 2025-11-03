@@ -24,8 +24,8 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
   private sub?: Subscription;
 
   menuItems: MenuItem[] = [
-    { label: 'Boards',  icon: 'pi pi-table',        route: '/dashboard',               badge: null },
-    { label: 'Issues',     icon: 'pi pi-list',        route: '/dashboard/issues',        badge: null },
+    { label: 'Dashboard',  icon: 'pi pi-table',        route: '/dashboard',               badge: null },
+    // { label: 'Issues',     icon: 'pi pi-list',        route: '/dashboard/issues',        badge: null },
   ];
 
   constructor(
@@ -71,7 +71,7 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
   getUserInitials(): string {
     if (!this.currentUser) return 'U';
     return `${this.currentUser.firstName.charAt(0)}${this.currentUser.lastName.charAt(0)}`.toUpperCase();
-    }
+  }
 
   getUserFullName(): string {
     if (!this.currentUser) return 'User';
